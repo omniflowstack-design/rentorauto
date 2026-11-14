@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RENTŐrauto — Utak, amik összekötnek</title>
+<meta name="description" content="RENTŐrauto — speciális autókölcsönző kisgyermekes családoknak, kisállat-gazdiknak és mozgássérülteknek. Minden autó felszerelve vár.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-900:#0d1626;
+  --navy-800:#14223a;
+  --navy-700:#1c2e4a;
+  --navy-600:#26395a;
+  --gold:#c9a24b;
+  --gold-light:#e2c379;
+  --gold-soft:#f1e4c3;
+  --cream:#f7f4ee;
+  --paper:#fbfaf7;
+  --ink:#1a2233;
+  --muted:#5e6b80;
+  --line:rgba(201,162,75,.22);
+
+  /* célcsoport színek */
+  --family:#6b8f9e;
+  --pet:#9e7b5a;
+  --access:#6a7fa8;
+
+  --radius:14px;
+  --radius-card:20px;
+  --shadow-card:0 24px 60px -24px rgba(13,22,38,.45);
+  --font-display:'Cormorant Garamond', Georgia, serif;
+  --font-body:'Manrope', system-ui, sans-serif;
+  --transition:.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* reset */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--font-body);
+  font-weight:400;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.7;
+  font-size:clamp(15px,1vw + .5rem,17px);
+  -webkit-font-smoothing:antialiased;
+}
+
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:1.2;
+  color:var(--ink);
+}
+h1{font-size:clamp(2.2rem, 4vw + 1rem, 3.8rem)}
+h2{font-size:clamp(1.8rem, 3vw + .5rem, 2.8rem)}
+h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
+
+/* szekció feletti kis címke */
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-family:var(--font-body);
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1rem;
+}
+.eyebrow::before{
+  content:'';
+  width:40px;height:1.5px;
+  background:var(--gold);
+}
+
+/* gombok */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:14px 36px;
+  border-radius:50px;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:.95rem;
+  cursor:pointer;
+  border:none;
+  transition:var(--transition);
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--navy-900);
+  box-shadow:0 8px 30px -8px rgba(201,162,75,.4);
+}
+.btn-primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 40px -8px rgba(201,162,75,.55);
+}
+.btn-outline{
+  background:transparent;
+  color:var(--gold);
+  border:1.5px solid var(--gold);
+}
+.btn-outline:hover{
+  background:rgba(201,162,75,.08);
+  transform:translateY(-2px);
+}
+.btn-dark{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--navy-900);
+  box-shadow:0 8px 30px -8px rgba(201,162,75,.4);
+}
+.btn-dark:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 40px -8px rgba(201,162,75,.55);
+}
+
+.container{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding-left:16px;
+  padding-right:16px;
+}
+
+
+/* --- header --- */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(13,22,38,.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  height:72px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.header-brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.header-brand img{ height:42px; width:auto }
+
+.header-brand-text{ display:flex; flex-direction:column }
+.header-brand-name{
+  font-family:var(--font-display);
+  font-size:1.4rem;
+  font-weight:700;
+  color:white;
+  line-height:1.1;
+}
+.header-brand-name span{ color:var(--gold) }
+
+.header-brand-slogan{
+  font-size:.7rem;
+  color:var(--muted);
+  letter-spacing:.06em;
+  margin-top:2px;
+}
+
+.header-nav{ display:flex; align-items:center; gap:32px }
+.header-nav a{
+  font-size:.85rem;
+  font-weight:500;
+  color:rgba(255,255,255,.7);
+  transition:color .25s;
+  white-space:nowrap;
+}
+.header-nav a:hover{ color:var(--gold) }
+
+.header-right{ display:flex; align-items:center; gap:20px }
+.header-phone{
+  font-size:.85rem;
+  color:rgba(255,255,255,.7);
+  font-weight:500;
+}
+.header-phone:hover{ color:var(--gold) }
+
+/* mobil hamburger */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px;
+}
+.hamburger span{
+  width:24px; height:2px;
+  background:var(--gold);
+  border-radius:2px;
+  transition:var(--transition);
+}
+
+.mobile-nav{
+  display:none;
+  position:fixed;
+  top:72px;left:0;right:0;bottom:0;
+  background:var(--navy-900);
+  z-index:99;
+  padding:40px 24px;
+  flex-direction:column;
+  gap:24px;
+}
+.mobile-nav a{
+  font-size:1.1rem;
+  color:rgba(255,255,255,.85);
+  font-weight:500;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.mobile-nav a:hover{ color:var(--gold) }
+
+/* checkbox-sel nyílik a mobilmenü */
+#menu-toggle{display:none}
+#menu-toggle:checked ~ .mobile-nav{display:flex}
+#menu-toggle:checked ~ .header-inner .hamburger span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+#menu-toggle:checked ~ .header-inner .hamburger span:nth-child(2){opacity:0}
+#menu-toggle:checked ~ .header-inner .hamburger span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+
+/* --- hero --- */
+
+.hero{
+  background:linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 50%, var(--navy-700) 100%);
+  position:relative;
+  overflow:hidden;
+  padding:100px 0 80px;
+}
+/* finom arany rácsozat a háttérben */
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(90deg,rgba(201,162,75,.03) 0,rgba(201,162,75,.03) 1px,transparent 1px,transparent 60px),
+    repeating-linear-gradient(0deg,rgba(201,162,75,.03) 0,rgba(201,162,75,.03) 1px,transparent 1px,transparent 60px);
+  pointer-events:none;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero-content{ position:relative; z-index:1 }
+.hero h1{ color:#fff; margin-bottom:16px }
+.hero h1 em{ font-style:italic; color:var(--gold) }
+
+.hero-subtitle{
+  font-family:var(--font-display);
+  font-size:clamp(1.1rem, 1.5vw, 1.4rem);
+  font-style:italic;
+  color:var(--gold-light);
+  margin-bottom:20px;
+}
+.hero-text{
+  color:rgba(255,255,255,.7);
+  font-size:1rem;
+  line-height:1.8;
+  margin-bottom:32px;
+  max-width:520px;
+}
+.hero-buttons{ display:flex; gap:16px; flex-wrap:wrap }
+
+.hero-cards{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  position:relative;
+  z-index:1;
+}
+.hero-card{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:24px 28px;
+  border-radius:var(--radius-card);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  transition:var(--transition);
+  cursor:pointer;
+}
+.hero-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--gold);
+  background:rgba(255,255,255,.07);
+}
+.hero-card-icon{
+  width:56px;height:56px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.hero-card-icon svg{ width:28px; height:28px }
+
+.hero-card--family .hero-card-icon{ background:rgba(107,143,158,.15) }
+.hero-card--family .hero-card-icon svg{ color:var(--family) }
+.hero-card--pet .hero-card-icon{ background:rgba(158,123,90,.15) }
+.hero-card--pet .hero-card-icon svg{ color:var(--pet) }
+.hero-card--access .hero-card-icon{ background:rgba(106,127,168,.15) }
+.hero-card--access .hero-card-icon svg{ color:var(--access) }
+
+.hero-card-content h3{
+  font-size:1.1rem;
+  color:#fff;
+  margin-bottom:4px;
+}
+.hero-card-content p{
+  font-size:.85rem;
+  color:rgba(255,255,255,.55);
+  line-height:1.5;
+}
+
+
+/* filozófia */
+
+.philosophy{
+  padding:100px 0;
+  background:var(--paper);
+}
+
+.philosophy-quote{
+  font-family:var(--font-display);
+  font-size:clamp(1.6rem, 3vw, 2.4rem);
+  font-style:italic;
+  font-weight:500;
+  color:var(--ink);
+  line-height:1.4;
+  margin-bottom:40px;
+  max-width:780px;
+  position:relative;
+  padding-left:28px;
+  border-left:3px solid var(--gold);
+}
+
+.philosophy-body{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:60px;
+  margin-bottom:60px;
+}
+.philosophy-text p{
+  color:var(--muted);
+  margin-bottom:16px;
+  line-height:1.8;
+}
+.philosophy-signature{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--gold);
+  margin-top:24px;
+}
+
+.values-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+}
+.value-card{
+  padding:36px 32px;
+  border-radius:var(--radius-card);
+  background:var(--cream);
+  border:1px solid var(--line);
+  text-align:center;
+  transition:var(--transition);
+}
+.value-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-card);
+  border-color:var(--gold);
+}
+.value-icon{
+  width:64px; height:64px;
+  margin:0 auto 20px;
+  border-radius:16px;
+  background:linear-gradient(135deg, var(--navy-900), var(--navy-700));
+  display:flex;
+  align-items:center;justify-content:center;
+}
+.value-icon svg{ width:28px; height:28px; color:var(--gold) }
+.value-card h3{ margin-bottom:10px }
+.value-card p{ color:var(--muted); font-size:.92rem; line-height:1.7 }
+
+
+/* szolgáltatás szekció */
+
+.services{
+  padding:100px 0;
+  background:var(--cream);
+}
+.services-header{
+  text-align:center;
+  margin-bottom:72px;
+}
+.services-header h2{ margin-top:12px }
+.services-header p{
+  max-width:560px;
+  margin:16px auto 0;
+  color:var(--muted);
+}
+
+.service-block{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  margin-bottom:80px;
+}
+.service-block:last-child{ margin-bottom:0 }
+
+/* váltakozó kép-szöveg sorrend */
+.service-block.reverse{ direction:rtl }
+.service-block.reverse > *{ direction:ltr }
+
+.service-image{
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  background:var(--navy-900);
+  aspect-ratio:4/3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.service-image svg{
+  width:80px; height:80px;
+  opacity:.3;
+}
+
+.service-content .eyebrow{ margin-bottom:12px }
+.service-content h3{
+  font-size:clamp(1.4rem, 2vw, 1.9rem);
+  margin-bottom:16px;
+}
+.service-content > p{
+  color:var(--muted);
+  margin-bottom:24px;
+  line-height:1.8;
+}
+
+.feature-list{ display:flex; flex-direction:column; gap:10px }
+.feature-list li{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:.92rem;
+  color:var(--ink);
+}
+.feature-list li::before{
+  content:'';
+  width:20px; height:20px;
+  flex-shrink:0;
+  border-radius:50%;
+  display:flex;
+  align-items:center;justify-content:center;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c9a24b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-color:rgba(201,162,75,.1);
+}
+
+/* szín kiemelés a szolgáltatás kategória szerint */
+.service-block--family .service-content .eyebrow{ color:var(--family) }
+.service-block--family .service-content .eyebrow::before{ background:var(--family) }
+.service-block--pet .service-content .eyebrow{ color:var(--pet) }
+.service-block--pet .service-content .eyebrow::before{ background:var(--pet) }
+.service-block--access .service-content .eyebrow{ color:var(--access) }
+.service-block--access .service-content .eyebrow::before{ background:var(--access) }
+
+
+/* flotta / autók */
+
+.fleet{
+  padding:100px 0;
+  background:var(--paper);
+}
+.fleet-header{ text-align:center; margin-bottom:60px }
+.fleet-header h2{ margin-top:12px }
+.fleet-header p{
+  max-width:520px;
+  margin:16px auto 0;
+  color:var(--muted);
+}
+
+.fleet-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:28px;
+}
+
+.car-card{
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  background:white;
+  border:1px solid var(--line);
+  transition:var(--transition);
+}
+.car-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-card);
+  border-color:var(--gold);
+}
+
+.car-card-image{
+  height:200px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.car-card--family .car-card-image{ background:linear-gradient(135deg, #1a3a4a, #0d2636) }
+.car-card--pet .car-card-image{ background:linear-gradient(135deg, #3a2a1a, #2a1c10) }
+.car-card--access .car-card-image{ background:linear-gradient(135deg, #1a2a4a, #0d1c36) }
+
+.car-card-image svg{
+  width:64px; height:64px;
+  opacity:.25;
+  color:white;
+}
+
+.car-card-badge{
+  position:absolute;
+  top:16px; left:16px;
+  padding:4px 14px;
+  border-radius:50px;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:white;
+}
+.car-card--family .car-card-badge{ background:var(--family) }
+.car-card--pet .car-card-badge{ background:var(--pet) }
+.car-card--access .car-card-badge{ background:var(--access) }
+
+.car-card-body{ padding:28px }
+.car-card-body h3{ margin-bottom:6px }
+
+.car-card-specs{
+  font-size:.85rem;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
+.car-card-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:20px;
+}
+.car-card-tags span{
+  padding:5px 14px;
+  border-radius:50px;
+  font-size:.78rem;
+  font-weight:500;
+  background:var(--cream);
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+
+.car-card-price{ display:flex; align-items:baseline; gap:6px }
+.car-card-price strong{
+  font-family:var(--font-display);
+  font-size:1.6rem;
+  font-weight:700;
+  color:var(--gold);
+}
+.car-card-price span{ font-size:.85rem; color:var(--muted) }
+
+
+/* folyamat (3 lépés) */
+
+.process{
+  padding:100px 0;
+  background:linear-gradient(135deg, var(--navy-900), var(--navy-800));
+  color:white;
+}
+.process-header{ text-align:center; margin-bottom:60px }
+.process-header h2{ color:white; margin-top:12px }
+.process-header p{
+  max-width:480px;
+  margin:16px auto 0;
+  color:rgba(255,255,255,.6);
+}
+
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:40px;
+}
+.process-step{ text-align:center }
+.process-step-number{
+  width:64px; height:64px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--navy-900);
+  font-family:var(--font-display);
+  font-size:1.6rem;
+  font-weight:700;
+  display:flex;
+  align-items:center; justify-content:center;
+  margin:0 auto 20px;
+}
+.process-step h3{
+  color:white;
+  margin-bottom:10px;
+  font-size:1.2rem;
+}
+.process-step p{
+  color:rgba(255,255,255,.6);
+  font-size:.92rem;
+  line-height:1.7;
+}
+
+/* cta / kapcsolat sáv */
+.cta{
+  padding:80px 0;
+  background:var(--navy-700);
+  text-align:center;
+}
+.cta h2{ color:white; margin-bottom:12px }
+.cta p{
+  color:rgba(255,255,255,.65);
+  max-width:480px;
+  margin:0 auto 32px;
+}
+.cta-buttons{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+
+/* vélemények */
+
+.testimonials{ padding:100px 0; background:var(--paper) }
+.testimonials-header{ text-align:center; margin-bottom:60px }
+.testimonials-header h2{ margin-top:12px }
+
+.testimonials-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:28px;
+}
+
+.testimonial-card{
+  padding:36px 32px;
+  border-radius:var(--radius-card);
+  background:white;
+  border:1px solid var(--line);
+  transition:var(--transition);
+}
+.testimonial-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-card);
+}
+
+.testimonial-stars{
+  color:var(--gold);
+  font-size:1rem;
+  margin-bottom:16px;
+  letter-spacing:2px;
+}
+.testimonial-text{
+  font-size:.95rem;
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:20px;
+  font-style:italic;
+}
+
+.testimonial-author{ display:flex; align-items:center; gap:12px }
+
+.testimonial-avatar{
+  width:44px; height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center; justify-content:center;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:1.1rem;
+  color:white;
+}
+.testimonial-card--family .testimonial-avatar{ background:var(--family) }
+.testimonial-card--pet .testimonial-avatar{ background:var(--pet) }
+.testimonial-card--access .testimonial-avatar{ background:var(--access) }
+
+.testimonial-author-info strong{ font-size:.92rem; display:block }
+.testimonial-author-info span{ font-size:.8rem; color:var(--muted) }
+
+
+/* GYIK — details/summary */
+
+.faq{
+  padding:100px 0;
+  background:var(--cream);
+}
+.faq-header{ text-align:center; margin-bottom:60px }
+.faq-header h2{ margin-top:12px }
+
+.faq-list{
+  max-width:760px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.faq-item{
+  border-radius:var(--radius);
+  background:white;
+  border:1px solid var(--line);
+  overflow:hidden;
+  transition:border-color .3s;
+}
+.faq-item:hover{ border-color:var(--gold) }
+
+.faq-item summary{
+  padding:20px 28px;
+  font-weight:600;
+  font-size:.98rem;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  list-style:none;
+}
+.faq-item summary::-webkit-details-marker{ display:none }
+
+.faq-item summary::after{
+  content:'+';
+  font-size:1.4rem;
+  color:var(--gold);
+  font-weight:300;
+  transition:var(--transition);
+  flex-shrink:0;
+  margin-left:16px;
+}
+.faq-item[open] summary::after{ content:'×' }
+
+.faq-item .faq-answer{
+  padding:0 28px 20px;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:.92rem;
+}
+
+
+/* lábléc */
+
+.footer{
+  background:var(--navy-900);
+  color:rgba(255,255,255,.7);
+  padding-top:72px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:48px;
+  margin-bottom:56px;
+}
+
+.footer-brand img{ height:40px; margin-bottom:16px }
+.footer-brand p{
+  font-size:.88rem;
+  line-height:1.7;
+  color:rgba(255,255,255,.5);
+  max-width:280px;
+}
+
+.footer h4{
+  font-family:var(--font-body);
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+.footer ul li{ margin-bottom:10px }
+.footer ul li a{
+  font-size:.88rem;
+  color:rgba(255,255,255,.55);
+  transition:color .25s;
+}
+.footer ul li a:hover{ color:var(--gold) }
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:24px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.footer-copyright{ font-size:.8rem; color:rgba(255,255,255,.35) }
+
+.footer-socials{ display:flex; gap:16px }
+.footer-socials a{
+  width:36px; height:36px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  display:flex;
+  align-items:center; justify-content:center;
+  transition:background .3s;
+}
+.footer-socials a:hover{ background:var(--gold) }
+.footer-socials a svg{
+  width:16px; height:16px;
+  color:rgba(255,255,255,.6);
+}
+.footer-socials a:hover svg{ color:var(--navy-900) }
+
+
+/* --- reszponzív --- */
+
+@media (max-width:980px){
+  .hero-grid{ grid-template-columns:1fr; gap:40px }
+  .philosophy-body{ grid-template-columns:1fr }
+  .service-block,
+  .service-block.reverse{ grid-template-columns:1fr; direction:ltr }
+  .fleet-grid{ grid-template-columns:repeat(2, 1fr) }
+  .process-steps{ grid-template-columns:1fr; gap:32px }
+  .testimonials-grid{ grid-template-columns:1fr }
+  .footer-grid{ grid-template-columns:1fr 1fr }
+  .values-grid{ grid-template-columns:1fr 1fr }
+}
+
+@media (max-width:720px){
+  .header-nav, .header-phone{ display:none }
+  .hamburger{ display:flex }
+
+  .hero{ padding:60px 0 48px }
+  .fleet-grid, .footer-grid, .values-grid{ grid-template-columns:1fr }
+  .cta-buttons{ flex-direction:column; align-items:center }
+  .hero-buttons{ flex-direction:column; align-items:flex-start }
+
+  .philosophy, .services, .fleet,
+  .process, .testimonials, .faq{ padding:72px 0 }
+}
+</style>
+</head>
+<body>
+
+<!-- fejléc -->
+<header class="header">
+  <input type="checkbox" id="menu-toggle" aria-label="Menü megnyitása/bezárása">
+  <nav class="mobile-nav">
+    <a href="#filozofia">Filozófia</a>
+    <a href="#szolgaltatasok">Szolgáltatások</a>
+    <a href="#autoink">Autóink</a>
+    <a href="#folyamat">Folyamat</a>
+    <a href="#gyik">GYIK</a>
+    <a href="tel:+36301234567">+36 30 123 4567</a><!-- TODO: valós szám -->
+    <a href="#kapcsolat" class="btn btn-primary">Foglalás</a>
+  </nav>
+  <div class="header-inner">
+    <a href="#" class="header-brand">
+      <img src="assets/rentor-logo.png" alt="RENTŐrauto logó" width="168" height="42">
+      <div class="header-brand-text">
+        <div class="header-brand-name">RENT<span>Ő</span>rauto</div>
+        <div class="header-brand-slogan">Utak, amik összekötnek</div>
+      </div>
+    </a>
+    <div class="header-nav">
+      <a href="#filozofia">Filozófia</a>
+      <a href="#szolgaltatasok">Szolgáltatások</a>
+      <a href="#autoink">Autóink</a>
+      <a href="#folyamat">Folyamat</a>
+      <a href="#gyik">GYIK</a>
+    </div>
+    <div class="header-right">
+      <a href="tel:+36301234567" class="header-phone">+36 30 123 4567</a><!-- TODO: valós szám -->
+      <a href="#kapcsolat" class="btn btn-primary" style="padding:10px 28px;font-size:.85rem">Foglalás</a>
+      <label for="menu-toggle" class="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </label>
+    </div>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">Speciális autókölcsönző</span>
+        <h1>Autók azoknak, akiket máshol <em>kihagynak.</em></h1>
+        <p class="hero-subtitle">„Utak, amik összekötnek"</p>
+        <p class="hero-text">
+          Kisgyermekkel, kisállattal vagy kerekesszékkel utazni nem luxus — alapjog.
+          Nálunk minden autó eleve felszerelve vár, hogy neked csak be kelljen ülnöd és elindulnod.
+        </p>
+        <div class="hero-buttons">
+          <a href="#kapcsolat" class="btn btn-primary">Foglalj most</a>
+          <a href="#szolgaltatasok" class="btn btn-outline">Szolgáltatások</a>
+        </div>
+      </div>
+
+      <div class="hero-cards">
+        <a href="#szolgaltatasok" class="hero-card hero-card--family">
+          <div class="hero-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"/></svg>
+          </div>
+          <div class="hero-card-content">
+            <h3>Családbarát</h3>
+            <p>Gyerekülés, isofix, pelenkázó-barát tér — minden a fedélzeten.</p>
+          </div>
+        </a>
+
+        <a href="#szolgaltatasok" class="hero-card hero-card--pet">
+          <div class="hero-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V3a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H14.23c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m.729-7.53a2.25 2.25 0 0 0-2.25 2.25v4.5a2.25 2.25 0 0 0 2.25 2.25h.008a2.25 2.25 0 0 0 2.25-2.25v-4.5a2.25 2.25 0 0 0-2.25-2.25h-.008Z"/></svg>
+          </div>
+          <div class="hero-card-content">
+            <h3>Kisállatbarát</h3>
+            <p>Válaszrács, mosható huzat, hám-rögzítő — a kedvenced is utazhat.</p>
+          </div>
+        </a>
+
+        <a href="#szolgaltatasok" class="hero-card hero-card--access">
+          <div class="hero-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A8.966 8.966 0 0 1 3 12c0-1.264.26-2.466.732-3.558"/></svg>
+          </div>
+          <div class="hero-card-content">
+            <h3>Akadálymentes</h3>
+            <p>Kézi vezérlés, rámpa, forgó ülés — önálló közlekedés, méltósággal.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- filozófia -->
+<section class="philosophy" id="filozofia">
+  <div class="container">
+    <span class="eyebrow">Filozófiánk</span>
+    <blockquote class="philosophy-quote">
+      „A mobilitás nem kiváltság. Mindenkinek joga van elindulni — és megérkezni."
+    </blockquote>
+    <div class="philosophy-body">
+      <div class="philosophy-text">
+        <p>
+          A RENTŐrauto azért jött létre, mert tudjuk: kisbabával, kutyával vagy kerekesszékkel a hétköznapi autóbérlés nehézkes, kínos, és feleslegesen drága. A legtöbb kölcsönzőnél a speciális igény „plusz probléma" — nálunk ez a normál.
+        </p>
+        <p>
+          Az autó nem üres doboz, amit neked kell felszerelned. Nálunk minden gépjármű már eleve készen áll arra a feladatra, amire szükséged van. A gyerekülés bekötve vár. A válaszrács a helyén van. A kézi vezérlés kalibrálva.
+        </p>
+        <p>
+          Senki nem „különleges eset". Három különböző igény — három tökéletesen felkészített autó. Ennyi az egész.
+        </p>
+        <div class="philosophy-signature">— A RENTŐrauto csapata</div>
+      </div>
+      <div></div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg>
+        </div>
+        <h3>Gondoskodás</h3>
+        <p>Nem szolgáltatást adunk, hanem figyelmet. Minden részletet átgondolunk, hogy neked ne kelljen.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+        </div>
+        <h3>Méltóság</h3>
+        <p>Senki nem „speciális eset". Az igényed itt természetes — a szolgáltatásunk ehhez igazodik.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.049.58.025 1.193-.14 1.743"/></svg>
+        </div>
+        <h3>Felkészültség</h3>
+        <p>Minden autó a feladatára kész. Nem kell semmit hoznod, kérned, vagy megoldanod — csak beülni és indulni.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- szolgáltatások -->
+<section class="services" id="szolgaltatasok">
+  <div class="container">
+    <div class="services-header">
+      <span class="eyebrow">Szolgáltatásaink</span>
+      <h2>Három igény. Három tökéletes autó.</h2>
+      <p>Minden gépjármű eleve felszerelve vár — neked csak be kell ülnöd.</p>
+    </div>
+
+    <!-- családbarát -->
+    <div class="service-block service-block--family">
+      <div class="service-image">
+        <!-- ide jön majd a valódi fotó -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+      </div>
+      <div class="service-content">
+        <span class="eyebrow">Családbarát</span>
+        <h3>Gyerekülés, isofix, és nyugalom</h3>
+        <p>
+          A kicsiket nem kell felkészíteni az útra — az autót kell felkészíteni rájuk.
+          A gyerekülés már bekötve vár, az isofix rendszer aktív, a padló pelenkázó-barát,
+          a csomagtér babakocsi-kompatibilis.
+        </p>
+        <ul class="feature-list">
+          <li>Isofix + beszerelt gyerekülés (több méretben)</li>
+          <li>Pelenkázó-barát sík padló</li>
+          <li>Babakocsi-barát csomagtér</li>
+          <li>Árnyékoló + gyerekzár</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- kisállatbarát -->
+    <div class="service-block service-block--pet reverse">
+      <div class="service-image">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+      </div>
+      <div class="service-content">
+        <span class="eyebrow">Kisállatbarát</span>
+        <h3>A kedvenced is utazhat — biztonságban</h3>
+        <p>
+          A legtöbb kölcsönzőnél a kutya „nem kívánatos utas". Nálunk az autó eleve úgy van kialakítva,
+          hogy a szőrös családtag is komfortosan és biztonságosan utazzon — és utána ne maradjon nyoma.
+        </p>
+        <ul class="feature-list">
+          <li>Válaszrács a csomagtérben</li>
+          <li>Mosható, vízlepergető huzat</li>
+          <li>Hám-rögzítő a hátsó ülésen</li>
+          <li>Szagsemleges, fertőtlenített belső</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- akadálymentes -->
+    <div class="service-block service-block--access">
+      <div class="service-image">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+      </div>
+      <div class="service-content">
+        <span class="eyebrow">Akadálymentes</span>
+        <h3>Szabadság, méltósággal</h3>
+        <p>
+          Nem az ember alkalmazkodik az autóhoz — az autó alkalmazkodik az emberhez.
+          Kézi vezérléssel, rámpával és forgó üléssel felszerelt járműveink önálló közlekedést
+          tesznek lehetővé — akadályok nélkül.
+        </p>
+        <ul class="feature-list">
+          <li>Kézi gáz/fék + forgó ülés</li>
+          <li>Kihajtható rámpa + szék-rögzítő</li>
+          <li>Alacsony, széles beszállás + kapaszkodók</li>
+          <li>Személyre szabott beállítás és bemutató</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- autók (flotta) -->
+<section class="fleet" id="autoink">
+  <div class="container">
+    <div class="fleet-header">
+      <span class="eyebrow">Autóink</span>
+      <h2>Válaszd ki, ami neked való</h2>
+      <p>Három autó, három küldetés — mindegyik felszerelve és készen áll.</p>
+    </div>
+
+    <div class="fleet-grid">
+      <!-- TODO: valódi autó típusok + fotók -->
+      <div class="car-card car-card--family">
+        <div class="car-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+          <span class="car-card-badge">Családbarát</span>
+        </div>
+        <div class="car-card-body">
+          <h3>Family Comfort</h3>
+          <div class="car-card-specs">5 fő · Automata · Nagy csomagtér</div>
+          <div class="car-card-tags">
+            <span>2× Gyerekülés</span>
+            <span>Isofix</span>
+            <span>Árnyékoló</span>
+            <span>Gyerekzár</span>
+          </div>
+          <div class="car-card-price">
+            <strong>17 900 Ft</strong><!-- ár egyeztetés alatt -->
+            <span>/ nap</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card car-card--pet">
+        <div class="car-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+          <span class="car-card-badge">Kisállatbarát</span>
+        </div>
+        <div class="car-card-body">
+          <h3>Pet Explorer</h3>
+          <div class="car-card-specs">4 fő + eb · Automata · Kombi</div>
+          <div class="car-card-tags">
+            <span>Válaszrács</span>
+            <span>Mosható huzat</span>
+            <span>Hám-rögzítő</span>
+            <span>Szagsemleges</span>
+          </div>
+          <div class="car-card-price">
+            <strong>18 900 Ft</strong><!-- ár egyeztetés alatt -->
+            <span>/ nap</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card car-card--access">
+        <div class="car-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+          <span class="car-card-badge">Akadálymentes</span>
+        </div>
+        <div class="car-card-body">
+          <h3>Freedom Access</h3>
+          <div class="car-card-specs">4 fő · Automata · Kézi vezérlés</div>
+          <div class="car-card-tags">
+            <span>Rámpa</span>
+            <span>Kézi gáz/fék</span>
+            <span>Szék-rögzítő</span>
+            <span>Forgó ülés</span>
+          </div>
+          <div class="car-card-price">
+            <strong>21 900 Ft</strong><!-- ár egyeztetés alatt -->
+            <span>/ nap</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- folyamat -->
+<section class="process" id="folyamat">
+  <div class="container">
+    <div class="process-header">
+      <span class="eyebrow">Hogyan működik?</span>
+      <h2>Három egyszerű lépés</h2>
+      <p>Nem bonyolítjuk el. Te szólsz, mi felkészülünk, te indulsz.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-step-number">1</div>
+        <h3>Mondd el, mire van szükséged</h3>
+        <p>Hívj fel vagy írj nekünk — mesélj az utadról, a kicsidről, a kedvencedről, vagy a speciális igényedről.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-number">2</div>
+        <h3>Mi felkészítjük az autót</h3>
+        <p>Kiválasztjuk és beállítjuk a számodra tökéletes autót — gyerekülés, rács, kézi vezérlés, minden a helyén.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-number">3</div>
+        <h3>Beülsz és indulsz</h3>
+        <p>Nincs várakozás, nincs kavarodás. Az autó kész, te is kész vagy — jó utat!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- kapcsolat / cta -->
+<section class="cta" id="kapcsolat">
+  <div class="container">
+    <span class="eyebrow">Kapcsolat</span>
+    <h2>Készen állsz az indulásra?</h2>
+    <p>Foglalj autót, kérdezz bátran, vagy egyszerűen csak szólj — mi itt vagyunk neked.</p>
+    <div class="cta-buttons">
+      <a href="tel:+36301234567" class="btn btn-dark"><!-- TODO: valós szám -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+        +36 30 123 4567
+      </a>
+      <a href="mailto:info@rentorauto.hu" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+        info@rentorauto.hu
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- vélemények -->
+<section class="testimonials" id="velemenyek">
+  <div class="container">
+    <div class="testimonials-header">
+      <span class="eyebrow">Vélemények</span>
+      <h2>Amit rólunk mondanak</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card testimonial-card--family">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          „Két gyerekkel utazni eddig mindig logisztikai rémálom volt. Itt beültünk, a gyerekülések a helyükön, az árnyékoló fent — először éreztem azt, hogy ránk gondoltak. A kicsik is nyugodtak voltak, mi is."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">K</div>
+          <div class="testimonial-author-info">
+            <strong>Kovács Réka</strong>
+            <span>Kisgyermekes anyuka</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card testimonial-card--pet">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          „A Dingóval eddig minden kölcsönzőnél probléma volt — vagy letiltották, vagy extra díjat kértek, vagy utána reklamáltak. Itt a kutya nem teher volt, hanem utas. A huzat mosható, a rács stabil, mi meg végre kirándulhattunk."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">N</div>
+          <div class="testimonial-author-info">
+            <strong>Nagy Balázs</strong>
+            <span>Kutyás gazdi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card testimonial-card--access">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          „Kerekesszékkel élni nem azt jelenti, hogy ne akarnál autózni. Eddig mindig valaki másra kellett várnom. A RENTŐrauto-nál először vezettem egyedül — kézi vezérléssel, saját tempóban. Ez szabadság."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">T</div>
+          <div class="testimonial-author-info">
+            <strong>Tóth Gergő</strong>
+            <span>Kerekesszékkel élő</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- gyik -->
+<section class="faq" id="gyik">
+  <div class="container">
+    <div class="faq-header">
+      <span class="eyebrow">Gyakori kérdések</span>
+      <h2>Kérdésed van? Itt a válasz.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Tényleg felszerelve kapom az autót?</summary>
+        <div class="faq-answer">
+          Igen! Minden autónk eleve tartalmazza a kategóriájához tartozó felszerelést. Nem kell semmit hoznod, kérned, vagy külön fizetned — a gyerekülés, a válaszrács, vagy a kézi vezérlés alapból az autóban van.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Mozgássérültként önállóan is vezethetek?</summary>
+        <div class="faq-answer">
+          Természetesen. A Freedom Access járműveink kézi gáz-fék rendszerrel és forgó üléssel vannak felszerelve. Az átvételkor személyre szabott bemutatót tartunk, hogy minden kényelmes és biztonságos legyen a számodra.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Mekkora kutyával utazhatok?</summary>
+        <div class="faq-answer">
+          Nincs méretkorlát! A Pet Explorer kombi kialakítása és a stabil válaszrács nagy testű kutyáknak is kényelmes. A mosható huzat és a szagsemleges fertőtlenítés miatt az autó bérlés után is makulátlan marad.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Milyen dokumentumok kellenek a bérléshez?</summary>
+        <div class="faq-answer">
+          Érvényes személyi igazolvány (vagy útlevél) és jogosítvány szükséges. 21 éves kortól, minimum 2 év jogosítvánnyal bérelhetsz. Mozgássérülteknek a kézi vezérléses autóhoz speciális jogosítvány szükséges.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Hogyan mondhatok le egy foglalást?</summary>
+        <div class="faq-answer">
+          A foglalás az átvétel előtt 48 órával díjmentesen lemondható telefonon vagy e-mailben. 48 órán belüli lemondás esetén a napi díj 50%-a kerül felszámításra. Részletekért keress minket közvetlenül!
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- lábléc -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/rentor-logo.png" alt="RENTŐrauto logó" width="160" height="40">
+        <p>Speciális autókölcsönző szolgáltatás kisgyermekes családoknak, kisállat-gazdiknak és mozgássérülteknek. Minden autó felszerelve vár.</p>
+      </div>
+      <div>
+        <h4>Navigáció</h4>
+        <ul>
+          <li><a href="#filozofia">Filozófia</a></li>
+          <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+          <li><a href="#autoink">Autóink</a></li>
+          <li><a href="#folyamat">Folyamat</a></li>
+          <li><a href="#gyik">GYIK</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kinek?</h4>
+        <ul>
+          <li><a href="#szolgaltatasok">Kisgyermekes családoknak</a></li>
+          <li><a href="#szolgaltatasok">Kisállat-gazdiknak</a></li>
+          <li><a href="#szolgaltatasok">Mozgássérülteknek</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kapcsolat</h4>
+        <ul><!-- TODO: valós elérhetőségek -->
+          <li><a href="tel:+36301234567">+36 30 123 4567</a></li>
+          <li><a href="mailto:info@rentorauto.hu">info@rentorauto.hu</a></li>
+          <li><a href="#">7800 Siklós, Fő utca 1.</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">&copy; 2024 RENTŐrauto. Minden jog fenntartva.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2Zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm6.5-.25a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0ZM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002ZM7 8.48H3V21h4V8.48Zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
