@@ -448,6 +448,11 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
   display:flex;
   align-items:center;
   justify-content:center;
+  position:relative;
+}
+.service-image img{
+  width:100%; height:100%;
+  object-fit:cover;
 }
 .service-image svg{
   width:80px; height:80px;
@@ -539,10 +544,27 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
 .car-card--pet .car-card-image{ background:linear-gradient(135deg, #3a2a1a, #2a1c10) }
 .car-card--access .car-card-image{ background:linear-gradient(135deg, #1a2a4a, #0d1c36) }
 
+.car-card-image img{
+  width:100%; height:100%;
+  object-fit:cover;
+}
 .car-card-image svg{
   width:64px; height:64px;
   opacity:.25;
   color:white;
+}
+
+.ai-label{
+  position:absolute;
+  bottom:8px; right:10px;
+  font-size:.6rem;
+  font-weight:500;
+  color:rgba(255,255,255,.7);
+  background:rgba(0,0,0,.4);
+  padding:2px 8px;
+  border-radius:20px;
+  letter-spacing:.02em;
+  pointer-events:none;
 }
 
 .car-card-badge{
@@ -1030,8 +1052,8 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
     <!-- családbarát -->
     <div class="service-block service-block--family">
       <div class="service-image">
-        <!-- ide jön majd a valódi fotó -->
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+        <img src="assets/family-car.png" alt="Családbarát autó gyerekülésekkel felszerelve">
+        <span class="ai-label">AI által generált tartalom</span>
       </div>
       <div class="service-content">
         <span class="eyebrow">Családbarát</span>
@@ -1053,7 +1075,8 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
     <!-- kisállatbarát -->
     <div class="service-block service-block--pet reverse">
       <div class="service-image">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+        <img src="assets/pet-car.png" alt="Kisállatbarát autó válaszráccsal és mosható huzattal">
+        <span class="ai-label">AI által generált tartalom</span>
       </div>
       <div class="service-content">
         <span class="eyebrow">Kisállatbarát</span>
@@ -1074,7 +1097,8 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
     <!-- akadálymentes -->
     <div class="service-block service-block--access">
       <div class="service-image">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+        <img src="assets/acces-car.png" alt="Akadálymentes autó kézi vezérléssel és rámpával">
+        <span class="ai-label">AI által generált tartalom</span>
       </div>
       <div class="service-content">
         <span class="eyebrow">Akadálymentes</span>
@@ -1108,8 +1132,9 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
       <!-- TODO: valódi autó típusok + fotók -->
       <div class="car-card car-card--family">
         <div class="car-card-image">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+          <img src="assets/family-car.png" alt="Family Comfort autó">
           <span class="car-card-badge">Családbarát</span>
+          <span class="ai-label">AI által generált tartalom</span>
         </div>
         <div class="car-card-body">
           <h3>Family Comfort</h3>
@@ -1135,8 +1160,9 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
 
       <div class="car-card car-card--pet">
         <div class="car-card-image">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+          <img src="assets/pet-car.png" alt="Pet Explorer autó">
           <span class="car-card-badge">Kisállatbarát</span>
+          <span class="ai-label">AI által generált tartalom</span>
         </div>
         <div class="car-card-body">
           <h3>Pet Explorer</h3>
@@ -1162,8 +1188,9 @@ h3{font-size:clamp(1.3rem, 2vw + .3rem, 1.8rem)}
 
       <div class="car-card car-card--access">
         <div class="car-card-image">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25m-3.75 9V6.75A2.25 2.25 0 0 1 12.75 4.5h3.75a2.25 2.25 0 0 1 2.25 2.25v9"/></svg>
+          <img src="assets/acces-car.png" alt="Freedom Access autó">
           <span class="car-card-badge">Akadálymentes</span>
+          <span class="ai-label">AI által generált tartalom</span>
         </div>
         <div class="car-card-body">
           <h3>Freedom Access</h3>
